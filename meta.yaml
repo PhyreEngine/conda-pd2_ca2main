@@ -1,0 +1,44 @@
+{% set name = "pd2_ca2main" %}
+{% set version = "0.1" %}
+
+package:
+  name: {{ name | lower }}
+  version: {{ version }}
+
+source:
+  - url: http://www.sbg.bio.ic.ac.uk/~phyre2/PD2/pd2_public.tar.gz
+    sha256: f07e251b59347de3ac07dfe4964ce6c8b6e926c9d08af6a673dac3e58ef917eb
+    patches:
+    - scons.patch
+    - tuple.patch
+  - path: env_vars
+
+build:
+  script_env:
+  - SCONSFLAGS
+  script: |
+    scons .
+    install -m755 -d "$PREFIX/bin"
+    install -m755 bin/* "$PREFIX/bin"
+
+    install -m755 -d "$PREFIX/share/pd2_ca2main"
+    cp -r database "$PREFIX/share/pd2_ca2main"
+
+    install -m755 -d "$PREFIX/etc/conda/activate.d"
+    install -m755 -d "$PREFIX/etc/conda/deactivate.d"
+    install -m755 "$SRC_DIR/activate.d/pd2_ca2main.sh" "$PREFIX/etc/conda/activate.d"
+    install -m755 "$SRC_DIR/deactivate.d/pd2_ca2main.sh" "$PREFIX/etc/conda/deactivate.d"
+
+requirements:
+  build:
+  - {{ compiler('cxx') }}
+  - scons
+  - gsl
+  - libboost
+  - perl
+  host:
+  - libboost
+  - gsl
+  run:
+  - gsl
+  - libboost

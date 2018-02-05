@@ -1,0 +1,33 @@
+--- a/src/backbonebuilder/alphabet_bb_builder.cpp	2013-09-17 13:36:14.000000000 +0100
++++ b/src/backbonebuilder/alphabet_bb_builder.cpp	2018-02-01 19:06:01.598170208 +0000
+@@ -136,12 +136,12 @@
+ 	//const bool is_even = letter_length % 2 == 0 ? true : false;
+ 	const int centre_res = letter_length / 2;
+ 
+-	vector<tuple<PRODART::POSE::const_atom_shared_ptr, PRODART::POSE::const_atom_shared_ptr, double> > at_at_wt_vec;
++	vector<boost::tuple<PRODART::POSE::const_atom_shared_ptr, PRODART::POSE::const_atom_shared_ptr, double> > at_at_wt_vec;
+ 	at_at_wt_vec.reserve(letter_length);
+ 	//std::map<PRODART::POSE::const_atom_shared_ptr, PRODART::POSE::const_atom_shared_ptr> atom_mapping;
+ 	for (int i = 0; i < letter_length; i++){
+ 		const int resnum = first_res + i;
+-		tuple<PRODART::POSE::const_atom_shared_ptr, PRODART::POSE::const_atom_shared_ptr, double> tup(letter->get_bb_atom(POSE::CA, i),
++        boost::tuple<PRODART::POSE::const_atom_shared_ptr, PRODART::POSE::const_atom_shared_ptr, double> tup(letter->get_bb_atom(POSE::CA, i),
+ 				pose_->get_bb_atom(POSE::CA, resnum),
+ 				weights[i]);
+ 		at_at_wt_vec.push_back(tup);
+@@ -186,13 +186,13 @@
+ 	//const bool is_even = letter_length % 2 == 0 ? true : false;
+ 	const int centre_res = letter_length / 2;
+ 
+-	vector<tuple<PRODART::POSE::atom_shared_ptr, PRODART::POSE::atom_shared_ptr, double> > at_at_wt_vec;
++	vector<boost::tuple<PRODART::POSE::atom_shared_ptr, PRODART::POSE::atom_shared_ptr, double> > at_at_wt_vec;
+ 	at_at_wt_vec.reserve(letter_length);
+ 
+ 	//std::map<PRODART::POSE::atom_shared_ptr, PRODART::POSE::atom_shared_ptr> atom_mapping;
+ 	for (int i = 0; i < letter_length; i++){
+ 		const int resnum = first_res + i;
+-		tuple<PRODART::POSE::atom_shared_ptr, PRODART::POSE::atom_shared_ptr, double> tup(pose_->get_bb_atom(POSE::CA, resnum),
++        boost::tuple<PRODART::POSE::atom_shared_ptr, PRODART::POSE::atom_shared_ptr, double> tup(pose_->get_bb_atom(POSE::CA, resnum),
+ 				b_let->get_bb_atom(POSE::CA, i),
+ 				weights[i]);
+ 		at_at_wt_vec.push_back(tup);
