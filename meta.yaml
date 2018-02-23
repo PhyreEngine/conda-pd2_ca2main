@@ -11,6 +11,7 @@ source:
     patches:
     - scons.patch
     - tuple.patch
+    - stack-smash.patch
   - path: env_vars
 
 build:
