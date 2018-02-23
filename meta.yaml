@@ -12,6 +12,7 @@ source:
     - scons.patch
     - tuple.patch
     - stack-smash.patch
+    - register.patch
   - path: env_vars
 
 build:
