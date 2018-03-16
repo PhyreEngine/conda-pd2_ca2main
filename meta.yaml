@@ -16,6 +16,7 @@ source:
   - path: env_vars
 
 build:
+  number: {{ environ.get("BUILD_NUMBER", 0) }}
   script_env:
   - SCONSFLAGS
   script: |
