@@ -6,20 +6,26 @@ package:
   version: {{ version }}
 
 source:
-  - url: http://www.sbg.bio.ic.ac.uk/~phyre2/PD2/pd2_public.tar.gz
-    sha256: f07e251b59347de3ac07dfe4964ce6c8b6e926c9d08af6a673dac3e58ef917eb
+  - git_url: https://github.com/jmacdona/pd2_public.git
+    git_rev: master
     patches:
-    - scons.patch
-    - tuple.patch
-    - stack-smash.patch
     - register.patch
+    - scons.patch
   - path: env_vars
 
 build:
-  number: {{ environ.get("BUILD_NUMBER", 0) }}
+  string: {{ architecture }}_{{ environ.get("BUILD_NUMBER", 0) }}
   script_env:
   - SCONSFLAGS
   script: |
+    export CXXFLAGS=$(
+        echo "$CXXFLAGS" | sed \
+        -e 's/-O[^ ]\+/-O3/' \
+        -e 's/-march=[^ ]\+/-march={{ architecture }}/' \
+        -e 's/-mtune=[^ ]\+//')
+    export CXXFLAGS="$CXXFLAGS -Wall"
+    export CPPFLAGS=$( echo "$CPPFLAGS" | sed 's/-O[^ ]\+//' )
+
     scons .
     install -m755 -d "$PREFIX/bin"
     install -m755 bin/* "$PREFIX/bin"
@@ -42,6 +48,12 @@ requirements:
   host:
   - libboost
   - gsl
+  - eigen >=3.3.3
   run:
   - gsl
   - libboost
+
+about:
+  home: https://github.com/jmacdona/pd2_public
+  license: proprietary
+  license_file: COPYRIGHT.TXT

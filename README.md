@@ -24,11 +24,9 @@ This recipe contains the following patches:
 
 * `scons.patch`
     Play nicely with `conda build` by passing various environment variables
-    through to SCons.
-
-* `tuple.patch`
-    Explicitly reference `boost::tuple` rather than using the ambiguous
-    `tuple`, which clashes with C++11's `std::tuple`.
+    through to SCons. This patch also forces the build system to use the
+    version of Eigen that is installed via conda, rather than the local
+    version bundled with pd2.
 
 [conda]: https://conda.io
 [pd2]: http://www.sbg.bio.ic.ac.uk/~phyre2/PD2_ca2main/
