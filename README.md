@@ -10,7 +10,7 @@ given a sequence profile.
 
 ## Building
 
-You should be able to build this package by simply running `conda build .`.
+You should be able to build this package by simply running `./build`.
 
 The data files for `pd2_ca2main` will be installed into
 `$PREFIX/share/pd2_ca2main/database`. Scripts will be installed into
