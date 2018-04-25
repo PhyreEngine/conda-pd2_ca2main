@@ -9,7 +9,6 @@ source:
   - git_url: https://github.com/jmacdona/pd2_public.git
     git_rev: master
     patches:
-    - register.patch
     - scons.patch
   - path: env_vars
 
